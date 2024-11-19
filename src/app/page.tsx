@@ -1,6 +1,7 @@
 'use client'
 
 import { orpc } from '@/lib/orpc'
+import { pong, visitScalar } from './actions'
 
 export default function Home() {
   return (
@@ -10,6 +11,8 @@ export default function Home() {
         You can visit the <a href="/scalar">Scalar API Reference</a> page.
       </p>
 
+      <ServerActionsTest />
+      <hr />
       <AddPlanet />
       <hr />
       <SSRListPlanets />
@@ -111,6 +114,27 @@ function AddPlanet() {
         <input type="file" name="image" accept="image/*" />
       </label>
       <button type="submit">Submit</button>
+    </form>
+  )
+}
+
+function ServerActionsTest() {
+  return (
+    <form>
+      Server Actions Test:{' '}
+      <button type="submit" formAction={visitScalar}>
+        Visit Scalar
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          pong(undefined).then((result) => {
+            alert(result)
+          })
+        }}
+      >
+        Pong
+      </button>
     </form>
   )
 }
